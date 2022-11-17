@@ -6,13 +6,15 @@ use std::time::Instant;
 
 use crate::core::ports;
 use crate::core::dns;
-use crate::core::error::Error;
 
 use crate::core::models::Subdomain;
 use crate::core::scanner;
 
-pub fn scan(target: &str) -> Result<(), Error> {
-    log::info!("\nScanning {} for its subdomains and vulnerabilities", target);
+use actix_web:: {HttpResponse, HttpRequest } ;
+
+pub async fn scan(req: HttpRequest) -> HttpResponse {
+
+    let target = req.match_info().get("domain").unwrap();
 
     let runtime = tokio::runtime::Builder::new_multi_thread()
         .enable_all()
@@ -99,6 +101,5 @@ pub fn scan(target: &str) -> Result<(), Error> {
     let scan_duration = scan_start_time.elapsed();
     log::info!("Scan completed in {:?}", scan_duration);
 
-    Ok(())
-
+    HttpResponse::Ok().await.unwrap()
 }
