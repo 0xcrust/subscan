@@ -1,3 +1,3 @@
-mod about;
-mod help;
-mod scan;
+pub mod about;
+pub mod help;
+pub mod scan;
