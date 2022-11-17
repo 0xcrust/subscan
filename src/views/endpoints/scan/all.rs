@@ -1,4 +1,5 @@
 use futures::{stream, StreamExt};
+use actix_web::HttpRequest;
 
 use std::collections::HashSet;
 use std::iter::FromIterator;
@@ -9,10 +10,10 @@ use crate::core::dns;
 
 use crate::core::models::Subdomain;
 use crate::core::scanner;
+use crate::json_serialization::subdomains::Subdomains;
 
-use actix_web:: {HttpResponse, HttpRequest } ;
 
-pub async fn scan(req: HttpRequest) -> HttpResponse {
+pub async fn scan(req: HttpRequest) -> Subdomains {
 
     let target = req.match_info().get("domain").unwrap();
 
@@ -30,8 +31,9 @@ pub async fn scan(req: HttpRequest) -> HttpResponse {
     let scan_start_time = Instant::now();
 
     let subdomains_modules = scanner::get_scanners();
+    let mut scan_results: Vec<Subdomain> = Vec::new();
 
-    runtime.block_on(async move {
+    runtime.block_on(async {
         // Scan subdomains using all the different scanners in the subdomain scanner module
         // and collect the results into a single String vector.
 
@@ -81,7 +83,7 @@ pub async fn scan(req: HttpRequest) -> HttpResponse {
 
         // Scan each subdomain for its open ports
         // 
-        let subdomains: Vec<Subdomain> = stream::iter(subdomains.into_iter())
+        scan_results = stream::iter(subdomains.into_iter())
             .map(|domain| {
                 log::info!("Scanning ports for {}", &domain.domain_name);
                 ports::scan_ports(ports_concurrency, domain)
@@ -90,7 +92,7 @@ pub async fn scan(req: HttpRequest) -> HttpResponse {
             .collect()
             .await;
 
-        for subdomain in &subdomains {
+        for subdomain in &scan_results {
             println!("{}", subdomain.domain_name);
             for port in &subdomain.open_ports {
                 println!("    {}", port.port);
@@ -101,5 +103,5 @@ pub async fn scan(req: HttpRequest) -> HttpResponse {
     let scan_duration = scan_start_time.elapsed();
     log::info!("Scan completed in {:?}", scan_duration);
 
-    HttpResponse::Ok().await.unwrap()
+    return Subdomains { subdomains: scan_results }
 }
