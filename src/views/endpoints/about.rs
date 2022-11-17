@@ -1,20 +1,29 @@
 use crate::core::scanner;
+use crate::json_serialization::message::Message;
 
-pub fn list_scanners() {
+pub async fn list_scanners() -> Message {
+    let mut message = String::new();
     let subdomain_scanners = scanner::get_scanners();
 
-    println!("\nSubdomain scanners:");
+    message += "Available scanners:\n";
     for scanner in subdomain_scanners {
-        println!("*    {}\n\t{}", scanner.name(), scanner.about());
+        let line = format!("* {}. {}\n", scanner.name(), scanner.about());
+        message = message + &line;
     }
+
+    Message::new(message)
 }
 
-pub fn about() {
-    println!("Welcome to crusty_scanner!\n");
-    println!("Authored by: Fatoke Ademola Paul(crusty dev)");
-    println!("Written in: The Rust Programming Language");
-    println!("Inspiration drawn from: tricoder by Sylvain Kerkour");
-    println!("What it does: Scans a target domain for its subdomains and their open ports");
-    println!("Enjoy using!");
+const ABOUT_MESSAGE: &str = 
+"
+    Welcome to crusty_scanner!\n
+    Authored by: 0xcrust.\n
+    Written in: Rust.\n
+    What it does: Scans a target domain for its subdomains.\n
+    Have fun!\n
+";
+
+pub async fn about() -> Message {
+    Message::new(ABOUT_MESSAGE.to_string())
 }
 
