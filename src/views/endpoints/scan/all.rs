@@ -14,7 +14,6 @@ use crate::json_serialization::subdomains::Subdomains;
 
 
 pub async fn scan(req: HttpRequest) -> Subdomains {
-
     let target = req.match_info().get("domain").unwrap();
 
     let runtime = tokio::runtime::Builder::new_multi_thread()
