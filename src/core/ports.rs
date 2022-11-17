@@ -6,7 +6,6 @@ use tokio::net::TcpStream;
 use tokio::sync::mpsc;
 
 use std::net::{SocketAddr, ToSocketAddrs};
-use std::sync::Arc;
 use std::time::Duration;
 
 
