@@ -1,11 +1,16 @@
-use std::env;
-
-use anyhow::Result;
+use actix_web::{ App, HttpServer };
 
 mod core;
 mod views;
+mod json_serialization;
 
-fn main() -> Result<()> {
-    println!("Is this working?");
-    Ok(())
+#[actix_rt::main]
+async fn main() -> std::io::Result<()> {
+    HttpServer::new(|| {
+        let app = App::new().configure(views::views_factory);
+        return app
+    })
+    .bind("127.0.0.1:8000")?
+    .run()
+    .await
 }
