@@ -11,7 +11,6 @@ use async_trait::async_trait;
 use tokio::sync::mpsc;
 use futures::StreamExt;
 
-
 pub struct BruteForceScan {}
 
 impl BruteForceScan {
