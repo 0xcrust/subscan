@@ -1,7 +1,7 @@
 body {
     font-family: Roboto, Arial;
     height: 100vh;
-    background-color: gray;
+    background-color: rgba(0, 0, 0, 0.797);
     padding-left: 20px;
     margin: 0;
 }
@@ -72,6 +72,8 @@ body {
 .result {
     border-bottom: 1px solid black;
     padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .subdomain-row {
@@ -79,13 +81,13 @@ body {
     justify-content: space-between;
     padding-top: 10px;
     padding-bottom: 10px;
+    flex: 1;
 }
 
 .subdomain {
     font-size: 1.1rem;
     color: navy;
     flex: 4;
-
 }
 
 .show-ports-btn {
@@ -106,9 +108,9 @@ body {
 }
 
 .show-ports {
-    /*display: inline;*/
-    /*height: fit-content;*/
+    flex: 4;
     height: 88px;
+    /*overflow: scroll;*/
 }
 
 .port {
@@ -136,5 +138,8 @@ body {
 
 .closed-port {
     color: red;
+}
 
+.fetching-plans {
+    animation: "pulse 5s infinite";
 }
