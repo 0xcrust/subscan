@@ -14,7 +14,31 @@ const scanResults = {
                 {
                     "port":22,
                     "conn_open":true
-                }
+                },
+                {
+                    "port":80,
+                    "conn_open":true
+                },
+                {
+                    "port":443,
+                    "conn_open":true
+                },
+                {
+                    "port":22,
+                    "conn_open":true
+                },
+                {
+                    "port":80,
+                    "conn_open":true
+                },
+                {
+                    "port":443,
+                    "conn_open":true
+                },
+                {
+                    "port":22,
+                    "conn_open":true
+                },
             ]
         },
         {
@@ -85,10 +109,11 @@ const scanResults = {
 
 const scanButton = document.getElementById('scan-button');
 
-
-/*
 /// EVENT LISTENER FOR BUTTON
+/*
 scanButton.addEventListener("click", function() {
+    
+    console.log("Scan begun!");
     let inputField = document.getElementById("query-input");
     let domain = inputField.value;
 
@@ -96,7 +121,7 @@ scanButton.addEventListener("click", function() {
     let call = apiCall(domain, url, "GET");
     call.send();
     document.getElementById("query-input").value = null;
-})*/
+});*/
 
 
 function renderResults(query, results) {
@@ -193,6 +218,7 @@ function renderResults(query, results) {
     console.log("rendering done; document: ", document.documentElement);
 }
 
+
 scanButton.addEventListener("click", function() {
     console.log("scan results: ", scanResults["subdomains"]);
     console.log("Before render results");
@@ -209,7 +235,7 @@ function apiCall(query, url, method) {
             console.log("subdomains: ", JSON.parse(this.responseText)["subdomains"]);
 
             console.log("before render results");
-            renderResults(query, JSON.parse(this.responseText));
+            renderResults(query, JSON.parse(this.responseText)["subdomains"]);
             console.log("results rendered?")
         }
     });
