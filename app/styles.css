@@ -57,12 +57,19 @@ body {
 #main-content {
 }
 
+#fetch-results-heading {
+    color: red;
+    font-size: 1.5rem;
+    animation: "pulse 5s infinite";
+}
+
 #show-results-heading {
-    color: navyblue;
+    color: black;
     font-size: 1.3rem;
 }
 
 #results-container {
+    margin-top: 20px;
     background-color: white;
     border-radius: 12px;
     width: 25%;
