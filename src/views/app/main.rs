@@ -8,8 +8,12 @@ pub async fn main() -> HttpResponse {
 
     let javascript = read_file(
         String::from("./app/app.js"));
+
+    let css = read_file(
+        String::from("./app/styles.css"));
         
-    html = html.replace("{{JAVASCRIPT}}", &javascript);
+    html = html.replace("{{JAVASCRIPT}}", &javascript)
+        .replace("{{CSS}}", &css);
     
     HttpResponse::Ok()
         .content_type("text/html; charset=utf-8")
