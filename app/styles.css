@@ -1,0 +1,140 @@
+body {
+    font-family: Roboto, Arial;
+    height: 100vh;
+    background-color: gray;
+    padding-left: 20px;
+    margin: 0;
+}
+
+#intro-content {
+    text-align: center;
+    border-radius: 10px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 50%;
+    margin-right: 50%;
+    transform: translate(-50%, 0%);
+    align-items: center;
+    margin-top: 32px;
+}
+
+#welcome-text {
+    color: navy;
+    font-size: 2.4rem;
+}
+
+#input-container{
+    display: flex;
+    width: 65%;
+    height: 36px;
+}
+
+#query-input{
+    flex: 4;
+    border: 1px solid red;
+    border-radius: 6px;
+    box-shadow: 0px 0px 3px;
+    padding-left: 10px;
+    margin-right: 18px;
+}
+
+#query-input::placeholder {
+    font-size: 1.0rem;
+}
+
+#scan-button {
+    flex: 1;
+    background-color: navy;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+#main-content {
+}
+
+#show-results-heading {
+    color: navyblue;
+    font-size: 1.3rem;
+}
+
+#results-container {
+    background-color: white;
+    border-radius: 12px;
+    width: 25%;
+    padding: 12px;
+}
+
+.result {
+    border-bottom: 1px solid black;
+    padding-bottom: 20px;
+}
+
+.subdomain-row {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.subdomain {
+    font-size: 1.1rem;
+    color: navy;
+    flex: 4;
+
+}
+
+.show-ports-btn {
+    background-color: navy;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 16px;
+    height: 28px;
+    font-size: 0.9rem;
+    flex: 1;
+}
+
+.ports-container {
+    height: 0px;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.show-ports {
+    /*display: inline;*/
+    /*height: fit-content;*/
+    height: 88px;
+}
+
+.port {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.port:hover {
+    background-color: rgba(211, 211, 211, 0.4);
+}
+
+.port-number {
+
+}
+
+.open-status {
+
+}
+
+.open-port {
+    color: green;
+}
+
+.closed-port {
+    color: red;
+
+}
