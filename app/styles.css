@@ -1,9 +1,10 @@
 body {
     font-family: Roboto, Arial;
     height: 100vh;
-    background-color: rgba(0, 0, 0, 0.797);
     padding-left: 20px;
     margin: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 #intro-content {
@@ -18,7 +19,9 @@ body {
     margin-right: 50%;
     transform: translate(-50%, 0%);
     align-items: center;
-    margin-top: 32px;
+    flex: 1;
+    border: 2px solid red;
+    margin-bottom: 20px;
 }
 
 #welcome-text {
@@ -39,10 +42,11 @@ body {
     box-shadow: 0px 0px 3px;
     padding-left: 10px;
     margin-right: 18px;
+    font-size: 1.1rem;
 }
 
 #query-input::placeholder {
-    font-size: 1.0rem;
+    font-size: 1.1rem;
 }
 
 #scan-button {
@@ -55,6 +59,13 @@ body {
 }
 
 #main-content {
+    flex: 3;
+    display: flex;
+    justify-content: space-between;
+}
+
+#results-section {
+    flex: 2;
 }
 
 #fetch-results-heading {
@@ -68,12 +79,25 @@ body {
     font-size: 1.3rem;
 }
 
+#results-row {
+    display: flex;
+    justify-content: space-between;
+    column-gap: 72px;
+}
+
 #results-container {
     margin-top: 20px;
-    background-color: white;
     border-radius: 12px;
-    width: 25%;
     padding: 12px;
+    border: 2px solid red;
+    flex: 1;
+}
+
+#export-results {
+    border: 1px solid black;
+    border-radius: 6px;
+    font-size: 1.0rem;
+    cursor: pointer;
 }
 
 .result {
@@ -137,6 +161,25 @@ body {
 
 .open-status {
 
+}
+
+#text-span {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 1.4rem;
+    color: green;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /*text-align: center;*/
+}
+
+#crusty-message {
+    border: 2px solid red;
+    border-radius: 12px;
+    text-align: center;
+    width: 75%;
+    margin-top: 24vh;
 }
 
 .open-port {

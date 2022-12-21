@@ -11,14 +11,12 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./styles.css">
 
 	<!--Font awesome-->
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!--Title-->
     <title>crusty scanner</title>
-
 		<!--Style-->
 		<style>
 			{{CSS}}
@@ -34,186 +32,214 @@
 	</div>
 
 	<div id="main-content">
+		<div id="results-section">
+			<!--Our Js code renders the HTML representing results here-->
+		</div>
+		<span id="text-span">
+			<div id="crusty-message">
+				<p>CrustyScanner v1.0</p>
+				<p>This program takes a subdomain and performs magic</p>
+				<p>Enter your domain to start</p>
+				<p>Happy hacking!</p>
+			</div>
+		</span>
 	</div>
 
-	<!--Html template used for generation of JS content-->
+	<!--This is the template model for the Javascript DOM manipulation-->
 	<!--
 	<div id="main-content">
-		<h3 id="fetch-results-heading">Scanning kerkour.com</h3>
-		<h3 id="show-results-heading">Showing results for kerkour.com</h3>
-		<div id="results-container"> 
-			<div class="result">
-				<div class="subdomain-row">
-					<div class="subdomain">social.kerkour.com</div>
-					<button class="show-ports-btn">
-						Ports
-					</button>
+		<div id="results-section">
+			<h3 id="fetch-results-heading">Scanning kerkour.com</h3>
+			<h3 id="show-results-heading">Showing results for kerkour.com</h3>
+
+			<div id="results-container"> 
+				<button id="export-results">
+					<span>Export Results</span>
+					<span class="fa-solid fa-download"></span>
+				</button>
+				<div class="result">
+					<div class="subdomain-row">
+						<div class="subdomain">social.kerkour.com</div>
+						<button class="show-ports-btn">
+							Ports
+						</button>
+					</div>
+					<div class="ports-container">
+						<div class="port">
+							<div class="port-number">80</div>
+							<div class="open-status">
+								<i class="fa-solid fa-circle open-port"></i>
+							</div>
+						</div>
+						<div class="port">
+							<div class="port-number">443</div>
+							<div class="open-status">
+								<i class="fa-solid fa-circle open-port"></i>
+							</div>
+						</div>
+						<div class="port">
+							<div class="port-number">22</div>
+							<div class="open-status">
+								<i class="fa-solid fa-circle"></i>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="ports-container">
-					<div class="port">
-						<div class="port-number">80</div>
-						<div class="open-status">
-							<i class="fa-solid fa-circle open-port"></i>
+	
+				<div class="result">
+					<div class="subdomain-row">
+						<div class="subdomain">academy.kerkour.com</div>
+						<button class="show-ports-btn">
+							Ports
+						</button>
+					</div>
+					<div class="ports-container">
+						<div class="port">
+							<div class="port-number">80</div>
+							<div class="open-status">
+								<i class="fa-solid fa-circle open-port"></i>
+							</div>
+						</div>
+						<div class="port">
+							<div class="port-number">443</div>
+							<div class="open-status">
+								<i class="fa-solid fa-circle open-port"></i>
+							</div>
+						</div>
+						<div class="port">
+							<div class="port-number">8443</div>
+							<div class="open-status">
+								<i class="fa-solid fa-circle open-port"></i>
+							</div>
+						</div>
+						<div class="port">
+							<div class="port-number">8080</div>
+							<div class="open-status">
+								<i class="fa-solid fa-circle open-port"></i>
+							</div>
 						</div>
 					</div>
-					<div class="port">
-						<div class="port-number">443</div>
-						<div class="open-status">
-							<i class="fa-solid fa-circle open-port"></i>
+				</div>
+	
+				<div class="result">
+					<div class="subdomain-row">
+						<div class="subdomain">social.kerkour.com</div>
+						<button class="show-ports-btn">
+							Ports
+						</button>
+					</div>
+					<div class="ports-container">
+						<div class="port">
+							<div class="port-number">80</div>
+							<div class="open-status">
+								<i class="fa-solid fa-circle closed-port"></i>
+							</div>
+						</div>
+						<div class="port">
+							<div class="port-number">443</div>
+							<div class="open-status">
+								<i class="fa-solid fa-circle open-port"></i>
+							</div>
+						</div>
+						<div class="port">
+							<div class="port-number">22</div>
+							<div class="open-status">
+								<i class="fa-solid fa-circle closed-port"></i>
+							</div>
 						</div>
 					</div>
-					<div class="port">
-						<div class="port-number">22</div>
-						<div class="open-status">
-							<i class="fa-solid fa-circle"></i>
+				</div>
+	
+				<div class="result">
+					<div class="subdomain-row">
+						<div class="subdomain">social.kerkour.com</div>
+						<button class="show-ports-btn">
+							Ports
+						</button>
+					</div>
+					<div class="ports-container">
+						<div class="port">
+							<div class="port-number">80</div>
+							<div class="open-status">
+								<i class="fa-solid fa-circle closed-port"></i>
+							</div>
+						</div>
+						<div class="port">
+							<div class="port-number">443</div>
+							<div class="open-status">
+								<i class="fa-solid fa-circle open-port"></i>
+							</div>
+						</div>
+						<div class="port">
+							<div class="port-number">22</div>
+							<div class="open-status">
+								<i class="fa-solid fa-circle closed-port"></i>
+							</div>
+						</div>
+					</div>
+				</div>
+	
+				<div class="result">
+					<div class="subdomain-row">
+						<div class="subdomain">social.kerkour.com</div>
+						<button class="show-ports-btn">
+							Ports
+						</button>
+					</div>
+					<div class="ports-container">
+						<div class="port">
+							<div class="port-number">80</div>
+							<div class="open-status">open</div>
+						</div>
+						<div class="port">
+							<div class="port-number">443</div>
+							<div class="open-status">not open</div>
+						</div>
+						<div class="port">
+							<div class="port-number">22</div>
+							<div class="open-status">open</div>
+						</div>
+					</div>
+				</div>
+	
+				<div class="result">
+					<div class="subdomain-row">
+						<div class="subdomain">social.kerkour.com</div>
+						<button class="show-ports-btn">
+							Ports
+						</button>
+					</div>
+					<div class="ports-container">
+						<div class="port">
+							<div class="port-number">80</div>
+							<div class="open-status">open</div>
+						</div>
+						<div class="port">
+							<div class="port-number">443</div>
+							<div class="open-status">not open</div>
+						</div>
+						<div class="port">
+							<div class="port-number">22</div>
+							<div class="open-status">open</div>
 						</div>
 					</div>
 				</div>
 			</div>
 
-			<div class="result">
-				<div class="subdomain-row">
-					<div class="subdomain">academy.kerkour.com</div>
-					<button class="show-ports-btn">
-						Ports
-					</button>
-				</div>
-				<div class="ports-container">
-					<div class="port">
-						<div class="port-number">80</div>
-						<div class="open-status">
-							<i class="fa-solid fa-circle open-port"></i>
-						</div>
-					</div>
-					<div class="port">
-						<div class="port-number">443</div>
-						<div class="open-status">
-							<i class="fa-solid fa-circle open-port"></i>
-						</div>
-					</div>
-					<div class="port">
-						<div class="port-number">8443</div>
-						<div class="open-status">
-							<i class="fa-solid fa-circle open-port"></i>
-						</div>
-					</div>
-					<div class="port">
-						<div class="port-number">8080</div>
-						<div class="open-status">
-							<i class="fa-solid fa-circle open-port"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="result">
-				<div class="subdomain-row">
-					<div class="subdomain">social.kerkour.com</div>
-					<button class="show-ports-btn">
-						Ports
-					</button>
-				</div>
-				<div class="ports-container show-ports">
-					<div class="port">
-						<div class="port-number">80</div>
-						<div class="open-status">
-							<i class="fa-solid fa-circle closed-port"></i>
-						</div>
-					</div>
-					<div class="port">
-						<div class="port-number">443</div>
-						<div class="open-status">
-							<i class="fa-solid fa-circle open-port"></i>
-						</div>
-					</div>
-					<div class="port">
-						<div class="port-number">22</div>
-						<div class="open-status">
-							<i class="fa-solid fa-circle closed-port"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="result">
-				<div class="subdomain-row">
-					<div class="subdomain">social.kerkour.com</div>
-					<button class="show-ports-btn">
-						Ports
-					</button>
-				</div>
-				<div class="ports-container">
-					<div class="port">
-						<div class="port-number">80</div>
-						<div class="open-status">
-							<i class="fa-solid fa-circle closed-port"></i>
-						</div>
-					</div>
-					<div class="port">
-						<div class="port-number">443</div>
-						<div class="open-status">
-							<i class="fa-solid fa-circle open-port"></i>
-						</div>
-					</div>
-					<div class="port">
-						<div class="port-number">22</div>
-						<div class="open-status">
-							<i class="fa-solid fa-circle closed-port"></i>
-						</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="result">
-				<div class="subdomain-row">
-					<div class="subdomain">social.kerkour.com</div>
-					<button class="show-ports-btn">
-						Ports
-					</button>
-				</div>
-				<div class="ports-container">
-					<div class="port">
-						<div class="port-number">80</div>
-						<div class="open-status">open</div>
-					</div>
-					<div class="port">
-						<div class="port-number">443</div>
-						<div class="open-status">not open</div>
-					</div>
-					<div class="port">
-						<div class="port-number">22</div>
-						<div class="open-status">open</div>
-					</div>
-				</div>
-			</div>
-
-			<div class="result">
-				<div class="subdomain-row">
-					<div class="subdomain">social.kerkour.com</div>
-					<button class="show-ports-btn">
-						Ports
-					</button>
-				</div>
-				<div class="ports-container">
-					<div class="port">
-						<div class="port-number">80</div>
-						<div class="open-status">open</div>
-					</div>
-					<div class="port">
-						<div class="port-number">443</div>
-						<div class="open-status">not open</div>
-					</div>
-					<div class="port">
-						<div class="port-number">22</div>
-						<div class="open-status">open</div>
-					</div>
-				</div>
-			</div>
+			
 		</div>
-	</div>-->
+		<span id="text-span">
+			<div id="crusty-message">
+				<p>CrustyScanner v1.0</p>
+				<p>This program takes a subdomain and performs magic</p>
+				<p>Enter your domain to start</p>
+				<p>Happy hacking!</p>
+			</div>
+		</span>
+	</div> -->
 
     <script>
-      {{JAVASCRIPT}}
+		{{JAVASCRIPT}}
     </script>
   </body>
 </html>
