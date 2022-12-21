@@ -13,4 +13,3 @@ pub trait Scanner {
 pub trait SubdomainScanner: Scanner {
     async fn get_subdomains(&self, target: &str) -> Result<Vec<String>, Error>;
 }
-

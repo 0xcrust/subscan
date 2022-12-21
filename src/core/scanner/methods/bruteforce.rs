@@ -1,21 +1,21 @@
-use crate::core::scanner::traits::{Scanner, SubdomainScanner};
 use crate::core::error::Error;
+use crate::core::scanner::traits::{Scanner, SubdomainScanner};
 
 use std::{
     fs::File,
     io::{BufRead, BufReader},
-    time::Instant
+    time::Instant,
 };
 
 use async_trait::async_trait;
-use tokio::sync::mpsc;
 use futures::StreamExt;
+use tokio::sync::mpsc;
 
 pub struct BruteForceScan {}
 
 impl BruteForceScan {
     pub fn new() -> Self {
-        return BruteForceScan{};
+        return BruteForceScan {};
     }
 }
 
@@ -29,7 +29,6 @@ impl Scanner for BruteForceScan {
     }
 }
 
-
 #[async_trait]
 impl SubdomainScanner for BruteForceScan {
     async fn get_subdomains(&self, target: &str) -> Result<Vec<String>, Error> {
@@ -42,9 +41,9 @@ impl SubdomainScanner for BruteForceScan {
         let reader = BufReader::new(subdomains_file);
 
         let start_time = Instant::now();
-        
-        let(input_tx, input_rx) = mpsc::channel(concurrency);
-        let(output_tx, output_rx) = mpsc::channel(concurrency);
+
+        let (input_tx, input_rx) = mpsc::channel(concurrency);
+        let (output_tx, output_rx) = mpsc::channel(concurrency);
 
         tokio::spawn(async move {
             for line in reader.lines() {
@@ -61,7 +60,7 @@ impl SubdomainScanner for BruteForceScan {
                 async move {
                     let subdomain = format!("{}.{}", prefix, &target);
                     log::info!("bruteforce subdomain: {}", &subdomain);
-                    let _ = output_tx.send(subdomain).await; 
+                    let _ = output_tx.send(subdomain).await;
                 }
             })
             .await;
@@ -74,9 +73,10 @@ impl SubdomainScanner for BruteForceScan {
 
         let _scan_duration = start_time.elapsed();
 
-        log::info!("\nBruteforce subdomain scan. time elapsed: {:?}", _scan_duration);
+        log::info!(
+            "\nBruteforce subdomain scan. time elapsed: {:?}",
+            _scan_duration
+        );
         return Ok(subdomains);
-    
     }
-    
 }

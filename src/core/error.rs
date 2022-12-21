@@ -1,7 +1,7 @@
 use thiserror::Error;
 
 /// Struct for error reporting.
-/// 
+///
 #[derive(Error, Debug, Clone)]
 pub enum Error {
     #[error("{0}, File Open Error")]
@@ -15,7 +15,7 @@ pub enum Error {
 }
 
 /// Converts tokioJoinError to custom enum Error for uniform reporting
-/// 
+///
 impl std::convert::From<tokio::task::JoinError> for Error {
     fn from(error_message: tokio::task::JoinError) -> Self {
         return Error::TokioJoinError(error_message.to_string());
@@ -29,9 +29,8 @@ impl std::convert::From<reqwest::Error> for Error {
     }
 }
 
-
 /// Converts std::io::error to custom enum Error for uniform reporting
-/// 
+///
 impl std::convert::From<std::io::Error> for Error {
     fn from(error_message: std::io::Error) -> Self {
         return Error::FileOpenError(error_message.to_string());

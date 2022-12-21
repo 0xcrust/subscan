@@ -1,5 +1,5 @@
+use super::models::{Port, Subdomain};
 use super::ports_list::PORTS_LIST;
-use super::models::{Subdomain, Port};
 
 use futures::StreamExt;
 use tokio::net::TcpStream;
@@ -8,10 +8,9 @@ use tokio::sync::mpsc;
 use std::net::{SocketAddr, ToSocketAddrs};
 use std::time::Duration;
 
-
 /// This function takes in a Subdomain, scans it for ports for which connections
 /// are active, and returns the subdomain with a vector of its active ports.
-/// 
+///
 pub async fn scan_ports(concurrency: usize, subdomain: Subdomain) -> Subdomain {
     log::info!("{}. Scanning for open ports:....", &subdomain.domain_name);
 
@@ -21,8 +20,8 @@ pub async fn scan_ports(concurrency: usize, subdomain: Subdomain) -> Subdomain {
         .to_socket_addrs()
         .expect("Scanning port...Creating socket address failed")
         .collect();
-    
-    // If no socket address is created for the subdomain over port 1024, return 
+
+    // If no socket address is created for the subdomain over port 1024, return
     // the subdomain as it is with open_ports empty.
 
     if socket_addresses.len() == 0 {
@@ -51,9 +50,10 @@ pub async fn scan_ports(concurrency: usize, subdomain: Subdomain) -> Subdomain {
                     let _ = output_tx.send(port).await;
                 }
             }
-        }).await;
+        })
+        .await;
 
-        drop(output_tx);
+    drop(output_tx);
 
     let output_receiver_stream = tokio_stream::wrappers::ReceiverStream::new(output_rx);
     result.open_ports = output_receiver_stream.collect().await;
@@ -73,16 +73,12 @@ async fn scan_port(mut socket_address: SocketAddr, port: u16) -> Port {
     if tokio::time::timeout(timeout, TcpStream::connect(&socket_address))
         .await
         .is_ok()
-            {
-                is_open = true;
-            }
+    {
+        is_open = true;
+    }
 
     return Port {
         port: port,
         conn_open: is_open,
-    }
+    };
 }
-
-
-
-

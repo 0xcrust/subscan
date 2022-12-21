@@ -1,17 +1,16 @@
-use futures::{stream, StreamExt};
 use actix_web::HttpRequest;
+use futures::{stream, StreamExt};
 
 use std::collections::HashSet;
 use std::iter::FromIterator;
 use std::time::Instant;
 
-use crate::core::ports;
 use crate::core::dns;
+use crate::core::ports;
 
 use crate::core::models::Subdomain;
 use crate::core::scanner;
 use crate::json_serialization::subdomains::Subdomains;
-
 
 pub async fn scan(req: HttpRequest) -> Subdomains {
     let target = req.match_info().get("domain").unwrap();
@@ -26,7 +25,7 @@ pub async fn scan(req: HttpRequest) -> Subdomains {
     let subdomains_concurrency = 100;
     let dns_concurrency = 200;
     let ports_concurrency = 200;
-    
+
     let scan_start_time = Instant::now();
 
     let subdomains_modules = scanner::get_scanners();
@@ -57,7 +56,7 @@ pub async fn scan(req: HttpRequest) -> Subdomains {
         subdomains.push(target.to_string());
 
         // Clean results using a hashset to prevent duplicates.
-        // 
+        //
         let subdomains: Vec<Subdomain> = HashSet::<String>::from_iter(subdomains.into_iter())
             .into_iter()
             .filter(|subdomain| subdomain.contains(target))
@@ -70,7 +69,7 @@ pub async fn scan(req: HttpRequest) -> Subdomains {
         log::info!("Found {} possible domains.", subdomains.len());
 
         // Concurrently filter out domains that do not resolve according the Domain Naming System.
-        // 
+        //
         let subdomains: Vec<Subdomain> = stream::iter(subdomains.into_iter())
             .map(|domain| dns::resolve_dns(&dns_resolver, domain))
             .buffer_unordered(dns_concurrency)
@@ -81,7 +80,7 @@ pub async fn scan(req: HttpRequest) -> Subdomains {
         log::info!("Found {} domains that resolve!", subdomains.len());
 
         // Scan each subdomain for its open ports
-        // 
+        //
         scan_results = stream::iter(subdomains.into_iter())
             .map(|domain| {
                 log::info!("Scanning ports for {}", &domain.domain_name);
@@ -102,5 +101,7 @@ pub async fn scan(req: HttpRequest) -> Subdomains {
     let scan_duration = scan_start_time.elapsed();
     log::info!("Scan completed in {:?}", scan_duration);
 
-    return Subdomains { subdomains: scan_results }
+    return Subdomains {
+        subdomains: scan_results,
+    };
 }

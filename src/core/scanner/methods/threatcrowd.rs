@@ -1,17 +1,17 @@
 use crate::{
+    core::error::Error,
     core::scanner::traits::{Scanner, SubdomainScanner},
-    core::error::Error
 };
 
-use serde::Deserialize;
 use async_trait::async_trait;
+use serde::Deserialize;
 use std::collections::HashSet;
 
 pub struct ThreatCrowdScan {}
 
 impl ThreatCrowdScan {
     pub fn new() -> Self {
-        return ThreatCrowdScan {}
+        return ThreatCrowdScan {};
     }
 }
 
@@ -25,21 +25,22 @@ impl Scanner for ThreatCrowdScan {
     }
 }
 
-
 /// Json deserialization struct for retrieving results from response body
-/// 
+///
 #[derive(Clone, Debug, Deserialize)]
 struct ThreatCrowdResponse {
-    subdomains: Vec<String>
+    subdomains: Vec<String>,
 }
-
 
 #[async_trait]
 impl SubdomainScanner for ThreatCrowdScan {
     async fn get_subdomains(&self, target: &str) -> Result<Vec<String>, Error> {
         log::info!("Getting subdomains from threatcrowd.org...");
 
-        let url = format!("https://threatcrowd.org/searchApi/v2/domain/report/?domain={}", target);
+        let url = format!(
+            "https://threatcrowd.org/searchApi/v2/domain/report/?domain={}",
+            target
+        );
         let res = reqwest::get(&url).await?;
 
         if !res.status().is_success() {
@@ -48,9 +49,9 @@ impl SubdomainScanner for ThreatCrowdScan {
 
         let response: ThreatCrowdResponse = match res.json().await {
             Ok(info) => info,
-            Err(_) => return Err(Error::InvalidHttpResponse(self.name()))
+            Err(_) => return Err(Error::InvalidHttpResponse(self.name())),
         };
-        
+
         // We use a hashset to prevent duplication of data
         let subdomains: HashSet<String> = response
             .subdomains
@@ -66,7 +67,5 @@ impl SubdomainScanner for ThreatCrowdScan {
             .collect();
 
         Ok(subdomains.into_iter().collect())
-
-    } 
+    }
 }
-

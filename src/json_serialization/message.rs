@@ -1,10 +1,10 @@
-use serde::Serialize;
-use actix_web::{Responder, Error, HttpRequest, HttpResponse};
+use actix_web::{Error, HttpRequest, HttpResponse, Responder};
 use futures::future::{ready, Ready};
+use serde::Serialize;
 
 #[derive(Serialize)]
 pub struct Message {
-    pub content: String
+    pub content: String,
 }
 
 impl Message {
@@ -20,7 +20,7 @@ impl Responder for Message {
     fn respond_to(self, _req: &HttpRequest) -> Self::Future {
         let body = serde_json::to_string(&self).unwrap();
         ready(Ok(HttpResponse::Ok()
-                .content_type("application/json")
-                .body(body)))
+            .content_type("application/json")
+            .body(body)))
     }
 }

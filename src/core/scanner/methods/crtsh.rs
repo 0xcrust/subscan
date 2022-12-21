@@ -1,12 +1,11 @@
 use crate::{
+    core::error::Error,
     core::scanner::traits::{Scanner, SubdomainScanner},
-    core::error::Error
 };
 
-use serde::Deserialize;
 use async_trait::async_trait;
+use serde::Deserialize;
 use std::collections::HashSet;
-
 
 pub struct CrtShScan {}
 
@@ -27,10 +26,10 @@ impl Scanner for CrtShScan {
 }
 
 /// Json deserialization struct for retrieving results from response body
-/// 
+///
 #[derive(Clone, Debug, Deserialize)]
 struct CrtShResponse {
-    name_value: String
+    name_value: String,
 }
 
 #[async_trait]

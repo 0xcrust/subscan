@@ -2,8 +2,7 @@
 //use actix_web::{web, HttpResponse};
 use crate::json_serialization::message::Message;
 
-const HELP_MESSAGE: &str = 
-r#"
+const HELP_MESSAGE: &str = r#"
     Usage:\n
     * '\api\v1\scan\{domain}' to scan for a particular domain\n
     * '\api\v1\about' to view application information.

@@ -1,5 +1,5 @@
-mod traits;
 mod methods;
+mod traits;
 
 use traits::SubdomainScanner;
 
@@ -14,12 +14,12 @@ pub fn get_scanners() -> Vec<Box<dyn SubdomainScanner>> {
 }
 
 #[allow(dead_code)]
-pub fn bruteforce_scan() -> Box<dyn SubdomainScanner>{
+pub fn bruteforce_scan() -> Box<dyn SubdomainScanner> {
     Box::new(methods::BruteForceScan::new())
 }
 
 #[allow(dead_code)]
-pub fn crtsh_scan() ->Box<dyn SubdomainScanner> {
+pub fn crtsh_scan() -> Box<dyn SubdomainScanner> {
     Box::new(methods::CrtShScan::new())
 }
 
@@ -34,7 +34,6 @@ pub fn threatminer_scan() -> Box<dyn SubdomainScanner> {
 }
 
 #[allow(dead_code)]
-pub fn webarchive_scan() -> Box<dyn SubdomainScanner>{
+pub fn webarchive_scan() -> Box<dyn SubdomainScanner> {
     Box::new(methods::WebArchiveScan::new())
 }
-

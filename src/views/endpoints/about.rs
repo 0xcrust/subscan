@@ -14,8 +14,7 @@ pub async fn list_scanners() -> Message {
     Message::new(message)
 }
 
-const ABOUT_MESSAGE: &str = 
-"
+const ABOUT_MESSAGE: &str = "
     Welcome to crusty_scanner!\n
     Authored by: 0xcrust.\n
     Written in: Rust.\n
@@ -26,4 +25,3 @@ const ABOUT_MESSAGE: &str =
 pub async fn about() -> Message {
     Message::new(ABOUT_MESSAGE.to_string())
 }
-

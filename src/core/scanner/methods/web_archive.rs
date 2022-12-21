@@ -1,6 +1,6 @@
 use crate::{
+    core::error::Error,
     core::scanner::traits::{Scanner, SubdomainScanner},
-    core::error::Error
 };
 
 use async_trait::async_trait;
@@ -27,7 +27,7 @@ impl Scanner for WebArchiveScan {
 }
 
 #[derive(Clone, Debug, Deserialize)]
-struct WebArchiveResults (Vec<Vec<String>>);
+struct WebArchiveResults(Vec<Vec<String>>);
 
 #[async_trait]
 impl SubdomainScanner for WebArchiveScan {
