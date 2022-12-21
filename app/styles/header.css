@@ -17,7 +17,7 @@
     top: 0px;
     height: 48px;
     color: green;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     padding-left: 20px;
     width: 10%;
     display: flex;
@@ -30,6 +30,7 @@
     align-items: center;
     column-gap: 42px;
     color: green;
+    font-size: 1.1rem;
 }
 
 .about, .source-code {

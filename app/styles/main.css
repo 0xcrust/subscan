@@ -69,7 +69,7 @@ body {
 }
 
 #results-section {
-    flex: 2;
+    flex: 1;
 }
 
 #fetch-results-heading {
@@ -95,6 +95,7 @@ body {
     padding: 12px;
     border: 2px solid green;
     flex: 1;
+    width: 70%;
 }
 
 #export-button-container {
@@ -109,6 +110,7 @@ body {
     font-size: 1.0rem;
     cursor: pointer;
     background-color: green;
+    padding: 4px 8px;
 }
 .export-text {
     color: white;
@@ -184,7 +186,7 @@ body {
 }
 
 #text-span {
-    flex: 3;
+    flex: 1;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -212,7 +214,7 @@ body {
     animation: "pulse 5s infinite";
 }
 
-@media(max-width: 500px) {
+@media(max-width: 550px) {
     body {
         padding-left: 0px;
     }
@@ -227,7 +229,10 @@ body {
         font-size: 1.4rem;
     }
     #results-section {
-        width: 80%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     #fetch-results-heading {
         font-size: 1.4rem;
@@ -239,7 +244,7 @@ body {
     }
 
     #text-span {
-        padding: 0px;        
+        padding: 0px;    
     }
     #crusty-message {
         font-size: 1.2rem;
@@ -247,12 +252,9 @@ body {
     }
 }
 
-@media(min-width: 501px) and (max-width: 750px) {
+@media(min-width: 551px) and (max-width: 850px) {
     body {
         padding-left: 0px;
-    }
-    #main-content {
-        align-items: center;
     }
     #query-input {
         width: 100%;
@@ -274,12 +276,15 @@ body {
     #show-results-heading {
         font-size: 1.2rem;
     }
-
     #text-span {
-        padding: 0px;        
+        padding: 0px;
+        align-self: center;        
     }
     #crusty-message {
         font-size: 1.2rem;
         margin: 50px;
+    }
+    #results-container {
+        width: 100%;
     }
 }
