@@ -107,12 +107,24 @@ const scanResults = {
     ]
 };
 
+function resetResults() {
+    resultsSection = document.getElementById('results-section');
+    resultsSection.innerHTML = '';
+}
+
+
 const scanButton = document.getElementById('scan-button');
+const resultsActive = false;
 
 /// EVENT LISTENER FOR BUTTON
 
-/*
 scanButton.addEventListener("click", function() {
+    resetResults();
+
+    if (resultsActive == true) {
+        resultsActive = false;
+    }
+
     console.log("Scan begun!");
 
     let inputField = document.getElementById("query-input");
@@ -129,8 +141,11 @@ scanButton.addEventListener("click", function() {
     let url = `api/v1/scan/${domain}`;
     let call = apiCall(domain, url, "GET");
     call.send();
+
+    // call.abort
+    resultsActive = true;
     document.getElementById("query-input").value = null;
-});*/
+});
 
 
 function renderResults(query, results) {
@@ -149,10 +164,18 @@ function renderResults(query, results) {
     resultsContainer.setAttribute("id", "results-container");
     resultsSection.appendChild(resultsContainer);
 
+    const exportButtonDiv = document.createElement('div');
+    exportButtonDiv.setAttribute('id', 'export-button-container');
+    resultsContainer.appendChild(exportButtonDiv);
+
     const exportButton = document.createElement('button');
     exportButton.setAttribute('id', 'export-results');
-    exportButton.innerHTML = '<span>Export Results</span><span class="fa-solid fa-download"></span>'
-    resultsContainer.appendChild(exportButton);
+    exportButtonDiv.appendChild(exportButton);
+    exportButton.innerHTML = '<span class="export-text">Export Results</span><span class="fa-solid fa-download"></span>'
+    
+    exportButton.addEventListener('click', function() {
+        resultsCSV = jsonToCsv(results);
+    });
 
     for(const result of results) {
         console.log("scanning ", result["domain_name"]);
@@ -215,12 +238,13 @@ function renderResults(query, results) {
     console.log("rendering done; document: ", document.documentElement);
 }
 
+/*
 scanButton.addEventListener("click", function() {
     console.log("scan results: ", scanResults["subdomains"]);
     console.log("Before render results");
     renderResults("kerkour.com", scanResults["subdomains"]);
     console.log("Results rendered?");
-}, {once: true})
+}, {once: true})*/
 
 function apiCall(query, url, method) {
     let xhr = new XMLHttpRequest();
