@@ -110,42 +110,49 @@ const scanResults = {
 const scanButton = document.getElementById('scan-button');
 
 /// EVENT LISTENER FOR BUTTON
+
+/*
 scanButton.addEventListener("click", function() {
     console.log("Scan begun!");
 
     let inputField = document.getElementById("query-input");
     let domain = inputField.value;
 
-    const mainContent = document.getElementById('main-content');
+    const resultsSection = document.getElementById('results-section');
 
+    // Create a header to display a 'scanning' message
     const heading = document.createElement('h3');
     heading.setAttribute('id', 'fetch-results-heading');
-    mainContent.appendChild(heading);
+    resultsSection.appendChild(heading);
     heading.innerText = `Scanning ${domain}`;
 
     let url = `api/v1/scan/${domain}`;
     let call = apiCall(domain, url, "GET");
     call.send();
     document.getElementById("query-input").value = null;
-});
+});*/
 
 
 function renderResults(query, results) {
     console.log("started rendering results");
-
-    const mainContent = document.getElementById('main-content');
+    const resultsSection = document.getElementById('results-section');
 
     const previousHeading = document.getElementById('fetch-results-heading');
-    previousHeading.remove();
+    if (previousHeading) previousHeading.remove();
 
-    const heading = document.createElement('show-results-heading');
+    const heading = document.createElement('h3');
     heading.setAttribute('id', 'show-results-heading');
-    mainContent.appendChild(heading);
+    resultsSection.appendChild(heading);
     heading.innerText = `Showing results for ${query}`;
 
     const resultsContainer = document.createElement('div');
     resultsContainer.setAttribute("id", "results-container");
-    mainContent.appendChild(resultsContainer);
+    resultsSection.appendChild(resultsContainer);
+
+    const exportButton = document.createElement('button');
+    exportButton.setAttribute('id', 'export-results');
+    exportButton.innerHTML = '<span>Export Results</span><span class="fa-solid fa-download"></span>'
+    resultsContainer.appendChild(exportButton);
 
     for(const result of results) {
         console.log("scanning ", result["domain_name"]);
@@ -208,13 +215,12 @@ function renderResults(query, results) {
     console.log("rendering done; document: ", document.documentElement);
 }
 
-/*
 scanButton.addEventListener("click", function() {
     console.log("scan results: ", scanResults["subdomains"]);
     console.log("Before render results");
     renderResults("kerkour.com", scanResults["subdomains"]);
     console.log("Results rendered?");
-})*/
+}, {once: true})
 
 function apiCall(query, url, method) {
     let xhr = new XMLHttpRequest();
@@ -231,6 +237,26 @@ function apiCall(query, url, method) {
     return xhr;
 }
 
+function jsonToCsv(items) {
+    const header = Object.keys(items[0]);
+    const headerString = header.join(',');
+  
+    // handle null or undefined values here
+    const replacer = (key, value) => value ?? '';
+  
+    const rowItems = items.map((row) =>
+      header
+        .map((fieldName) => JSON.stringify(row[fieldName], replacer))
+        .join(',')
+    );
+  
+    // join header and body, and break into separate lines
+    const csv = [headerString, ...rowItems].join('\r\n');
+    return csv;
+}
 
 // Todo: write code to export contents into a csv file.
 // Todo: make it work for blockchain domains?
+
+// need a refresh button
+// need an export button
